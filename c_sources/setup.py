@@ -36,7 +36,7 @@ if not DEBUG_MODE:
         ext_modules = [Extension(
             module_name,
             ['core.pyx'],
-            extra_compile_args=['/Ox','/openmp:llvm','/GT','/arch:SSE2','/fp:fast', '/wd4244', '/MD']
+            extra_compile_args=['/Ox', '/openmp:llvm', '/GT', '/arch:SSE4.2', '/fp:fast', '/MD']
         )]
 
     elif os_name == "Linux":
