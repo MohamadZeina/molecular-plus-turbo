@@ -27,8 +27,7 @@ image by tinkerboy123
 
 ![header image](https://github.com/u3dreal/molecular-plus/blob/main/doc/molecular-plus.png)
 
-
-
+Molecular Plus Turbo is an attempt to compile molecular plus with vectorised extension sets like AVX512, for improved performance.
 
 
 
