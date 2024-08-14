@@ -774,3 +774,4 @@ c_sources/openmp/openmp-13.0.1.src.tar.xz
 .idea/molecularplus.iml
 .idea/misc.xml
 .idea/inspectionProfiles/profiles_settings.xml
+/c_sources/compiled_and_packaged
