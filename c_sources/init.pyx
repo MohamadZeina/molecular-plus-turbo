@@ -43,6 +43,7 @@ cpdef init(importdata):
         psys[i].collision_group = importdata[i + 1][6][2]
         psys[i].friction = importdata[i + 1][6][3]
         psys[i].collision_damp = importdata[i + 1][6][4]
+        psys[i].collision_search_multiplier = importdata[i + 1][6][48]
         psys[i].links_active = importdata[i + 1][6][5]
         psys[i].link_length = importdata[i + 1][6][6]
         psys[i].link_max = importdata[i + 1][6][7]

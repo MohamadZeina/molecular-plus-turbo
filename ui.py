@@ -405,6 +405,8 @@ class MS_PT_MolecularPanel(bpy.types.Panel):
             row = box.row()
             row.prop(psys.settings, "mol_friction", text=" Friction:")
             row.prop(psys.settings, "mol_collision_damp", text=" Damping:")
+            row = box.row()
+            row.prop(psys.settings, "mol_collision_search_multiplier", text=" Search Radius:")
 
         ###   Links at Birth   ###
 

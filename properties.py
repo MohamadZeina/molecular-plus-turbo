@@ -65,6 +65,11 @@ def define_props():
         name="Damping:", description=descriptions.COLLISION_DAMPING,
         default=0.005, min=0, max=1, precision=6, subtype='FACTOR'
     )
+    parset.mol_collision_search_multiplier = bpy.props.FloatProperty(
+        name="Search Radius Multiplier",
+        description="Neighbor search radius as multiple of particle diameter (default 2.0)",
+        default=2.0, min=0.5, max=100.0, precision=2
+    )
 
     parset.mol_collision_group = bpy.props.IntProperty(
         name='Collide only with:', default=1, min=1,

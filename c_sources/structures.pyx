@@ -54,6 +54,7 @@ cdef struct ParSys:
     int collision_group
     float friction
     float collision_damp
+    float collision_search_multiplier
     int links_active
     float link_length
     int link_rellength

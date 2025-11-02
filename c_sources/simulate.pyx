@@ -53,7 +53,7 @@ cdef Particle *parlist = NULL
 cdef SParticle *parlistcopy = NULL
 cdef ParSys *psys = NULL
 cdef KDTree *kdtree = NULL
-print("cmolcore imported  v1.14.5")
+print("cmolcore imported  v1.20.3.1-tunable")
 
 cpdef simulate(importdata):
     global kdtree
@@ -88,6 +88,11 @@ cpdef simulate(importdata):
     newlinks = 0
     for i in range(cpunum):
         deadlinks[i] = 0
+
+    # Debug: print search multiplier values
+    if parnum > 0:
+        print(f"Search multiplier for first particle system: {parlist[0].sys.collision_search_multiplier}")
+
     if profiling == 1:
         print("-->start simulate")
         stime2 = clock()
@@ -126,8 +131,12 @@ cpdef simulate(importdata):
                     if parlist[i].links[ii].lenght > maxSize:
                         maxSize = parlist[i].links[ii].lenght
 
-        if (parlist[i].size * 2) > maxSize:
-            maxSize = (parlist[i].size * 2)
+        # Use search multiplier for collision detection, with safety bounds
+        cdef float search_mult = parlist[i].sys.collision_search_multiplier
+        if search_mult < 0.1 or search_mult > 200.0:
+            search_mult = 2.0
+        if (parlist[i].size * search_mult) > maxSize:
+            maxSize = (parlist[i].size * search_mult)
 
     if (maxX - minX) >= (maxY - minY) and (maxX - minX) >= (maxZ - minZ):
         parPool[0].axis = 0
@@ -226,11 +235,16 @@ cpdef simulate(importdata):
                         chunksize=2,
                         num_threads=cpunum
                         ):
+            # Safety check - ensure multiplier is valid
+            cdef float multiplier = parlist[i].sys.collision_search_multiplier
+            if multiplier < 0.1 or multiplier > 200.0:
+                multiplier = 2.0  # Fallback to safe default
+
             KDTree_rnn_query(
                 kdtree,
                 &parlist[i],
                 parlist[i].loc,
-                parlist[i].size * 2
+                parlist[i].size * multiplier
             )
 
     if profiling == 1:
