@@ -70,6 +70,11 @@ def define_props():
         description="Neighbor search radius as multiple of particle diameter (default 2.0)",
         default=2.0, min=0.5, max=100.0, precision=2
     )
+    parset.mol_velocity_limit = bpy.props.FloatProperty(
+        name="Max Velocity",
+        description="Maximum particle velocity per frame (0 = unlimited, default 100). Lower values prevent vibration in dense areas",
+        default=100.0, min=0.0, max=10000.0, precision=1
+    )
 
     parset.mol_collision_group = bpy.props.IntProperty(
         name='Collide only with:', default=1, min=1,

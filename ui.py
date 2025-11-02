@@ -407,6 +407,8 @@ class MS_PT_MolecularPanel(bpy.types.Panel):
             row.prop(psys.settings, "mol_collision_damp", text=" Damping:")
             row = box.row()
             row.prop(psys.settings, "mol_collision_search_multiplier", text=" Search Radius:")
+            row = box.row()
+            row.prop(psys.settings, "mol_velocity_limit", text=" Max Velocity:")
 
         ###   Links at Birth   ###
 

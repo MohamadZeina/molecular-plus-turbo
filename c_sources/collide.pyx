@@ -170,6 +170,23 @@ cdef void collide(Particle *par)noexcept nogil:
                         (1 - damping2))) + ((xi_vel[2] * friction2) + \
                         ( xpar_vel[2] * ( 1 - friction2)))
 
+                    # Velocity clamping to prevent runaway vibration in dense areas
+                    if par.sys.velocity_limit > 0:
+                        cdef float vel_mag = sqrt(par.vel[0]**2 + par.vel[1]**2 + par.vel[2]**2)
+                        if vel_mag > par.sys.velocity_limit:
+                            cdef float scale = par.sys.velocity_limit / vel_mag
+                            par.vel[0] *= scale
+                            par.vel[1] *= scale
+                            par.vel[2] *= scale
+
+                    if par2.sys.velocity_limit > 0:
+                        cdef float vel_mag2 = sqrt(par2.vel[0]**2 + par2.vel[1]**2 + par2.vel[2]**2)
+                        if vel_mag2 > par2.sys.velocity_limit:
+                            cdef float scale2 = par2.sys.velocity_limit / vel_mag2
+                            par2.vel[0] *= scale2
+                            par2.vel[1] *= scale2
+                            par2.vel[2] *= scale2
+
                     par2.collided_with[par2.collided_num] = par.id
                     par2.collided_num += 1
                     par2.collided_with = <int *>realloc(

@@ -99,7 +99,7 @@ def pack_data(context, initiate):
                         psys.settings.mol_relink_ebroken = psys.settings.mol_relink_broken
                         psys.settings.mol_relink_ebrokenrand = psys.settings.mol_relink_brokenrand
 
-                    params = [0] * 49
+                    params = [0] * 50
 
                     params[0] = psys.settings.mol_selfcollision_active
                     params[1] = psys.settings.mol_othercollision_active
@@ -154,6 +154,10 @@ def pack_data(context, initiate):
                         params[48] = psys.settings.mol_collision_search_multiplier
                     else:
                         params[48] = 2.0
+                    if hasattr(psys.settings, 'mol_velocity_limit'):
+                        params[49] = psys.settings.mol_velocity_limit
+                    else:
+                        params[49] = 100.0
 
                 mol_exportdata = bpy.context.scene.mol_exportdata
 
